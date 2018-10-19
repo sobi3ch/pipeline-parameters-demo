@@ -4,7 +4,7 @@ pipeline {
     choice( name: 'env',
             choices: 'stage-eu\nstage-us\nprod-eu\nprod-us',
             description: 'Pickup deployment environment')
-    choice(name: 'upsteram_platform',
+    choice(name: 'upstream_platform',
             choices: 'v6 (latest)\nv7-dev.12341abc\nv5\nv4\nv3\nv3dev\nv2\nv2dev\nv1',
             description: 'Pickup upstream version to deploy?')
     choice(name: 'profiles',
