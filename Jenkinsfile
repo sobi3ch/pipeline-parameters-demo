@@ -37,14 +37,16 @@ pipeline {
 
     stage('Terraform plan') {
       steps {
-        echo "Terraform will perform the following actions:
+        echo '''
+        Terraform will perform the following actions:
 
   + aws_db_instance.default
      ...
       password:                   <sensitive>
       username:                   "foo"
 
-Plan: 3 to add, 1 to change, 1 to destroy."
+Plan: 3 to add, 1 to change, 1 to destroy.
+'''
         sh "sleep 2"
       }
     }
