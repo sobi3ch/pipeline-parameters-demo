@@ -39,7 +39,22 @@ pipeline {
       }
     }
 
+    stage('Terraform plan') {
+      steps {
+        echo "Planning..."
+        sh "sleep 2"
+      }
+    }
+
     stage('Deploy') {
+
+      input{
+        message "Press Ok to continue deployment"
+        parameters {
+          string(name:'username', defaultValue: 'user', description: 'Username of the user pressing Ok')
+        }
+      }
+
       steps {
         echo "Deploying to ${params.env}"
         sh "sleep 3"
