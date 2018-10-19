@@ -1,9 +1,6 @@
 pipeline {
   agent any
   parameters {
-    choice( name: 'env',
-            choices: 'stage-eu\nstage-us\nprod-eu\nprod-us',
-            description: 'Pickup deployment environment')
     choice(name: 'upstream_platform',
             choices: 'v6 (latest)\nv7-dev.12341abc\nv5\nv4\nv3\nv3dev\nv2\nv2dev\nv1',
             description: 'Pickup version to deploy?')
@@ -17,7 +14,6 @@ pipeline {
   stages {
     stage('Prepare') {
       steps {
-        echo "Environment: ${params.env}"
         echo "Upstream platform: ${params.upstream_platform}"
         echo "Profiles: ${params.profiles}"
         echo "Session: ${params.session}"
@@ -41,7 +37,14 @@ pipeline {
 
     stage('Terraform plan') {
       steps {
-        echo "Planning..."
+        echo "Terraform will perform the following actions:
+
+  + aws_db_instance.default
+     ...
+      password:                   <sensitive>
+      username:                   "foo"
+
+Plan: 3 to add, 1 to change, 1 to destroy."
         sh "sleep 2"
       }
     }
@@ -50,6 +53,7 @@ pipeline {
 
       input{
         message "Press Ok to continue deployment"
+        ok "Continue deployment"
         parameters {
           string(name:'username', defaultValue: 'user', description: 'Username of the user pressing Ok')
         }
