@@ -6,13 +6,13 @@ pipeline {
             description: 'Pickup deployment environment')
     choice(name: 'upstream_platform',
             choices: 'v6 (latest)\nv7-dev.12341abc\nv5\nv4\nv3\nv3dev\nv2\nv2dev\nv1',
-            description: 'Pickup upstream version to deploy?')
+            description: 'Pickup version to deploy?')
     choice(name: 'profiles',
             choices: 'v3 (latest)\nv4-dev.asdf1234\nv2\nv1',
-            description: 'Pickup upstream version to deploy?')
+            description: 'Pickup version to deploy?')
     choice(name: 'session',
             choices: 'v5 (latest)\nv6-dev.d832k38ck\nv4\nv3\nv2\nv1',
-            description: 'Pickup session version to deploy?')
+            description: 'Pickup version to deploy?')
   }
   stages {
     stage('Prepare') {
