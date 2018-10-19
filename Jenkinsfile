@@ -52,11 +52,11 @@ Plan: 3 to add, 1 to change, 1 to destroy."
     stage('Deploy') {
 
       input{
-        message "Press Ok to continue deployment"
+        message "Do you want continue deployment?"
         ok "Continue deployment"
-        parameters {
-          string(name:'username', defaultValue: 'user', description: 'Username of the user pressing Ok')
-        }
+        // parameters {
+        //   string(name:'username', defaultValue: 'user', description: 'Username of the user pressing Ok')
+        // }
       }
 
       steps {
