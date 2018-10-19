@@ -1,23 +1,48 @@
 pipeline {
   agent any
   parameters {
-    choice(name: 'door_choice',
-      choices: 'one\ntwo\nthree\nfour',
-      description: 'What door do you choose?')
-    booleanParam(name: 'CAN_DANCE',
-      defaultValue: true,
-      description: 'Checkbox parameter')
-    string(name: 'sTrAnGePaRaM',
-      defaultValue: 'Dance!',
-      description: 'Do the funky chicken!')
+    choice( name: 'env',
+            choices: 'stage-eu\nstage-us\nprod-eu\nprod-us',
+            description: 'Pickup deployment environment')
+    choice(name: 'upsteram_platform',
+            choices: 'v6 (latest)\nv5\nv4\nv3\nv3dev\nv2\nv2dev\nv1',
+            description: 'Pickup upstream version to deploy?')
+    choice(name: 'profiles',
+            choices: 'v3 (latest)\nv2\nv1',
+            description: 'Pickup upstream version to deploy?')
+    choice(name: 'session',
+            choices: 'v5 (latest)\nv4\nv3\nv2\nv1',
+            description: 'Pickup session version to deploy?')
   }
   stages {
-    stage('Example') {
+    stage('Prepare') {
       steps {
-        echo 'Hello World!'
-        echo "Trying: ${params.door_choice}"
-        echo "We can dance: ${params.CAN_DANCE}"
-        echo "The DJ says: ${params.sTrAnGePaRaM}"
+        echo "Environment: ${params.env}"
+        echo "Upstream platform: ${params.upstream_platform}"
+        echo "Profiles: ${params.profiles}"
+        echo "Session: ${params.session}"
+        sh "sleep 1"
+      }
+    }
+
+    stage('Coding Standards') {
+      steps {
+        echo "Checking coding standards.."
+        sh "sleep 1"
+      }
+    }
+
+    stage('Run tests') {
+      steps {
+        echo "Running tests.."
+        sh "sleep 1"
+      }
+    }
+
+    stage('Deploy') {
+      steps {
+        echo "Deploying to ${params.env}"
+        sh "sleep 3"
       }
     }
   }
