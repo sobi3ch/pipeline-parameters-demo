@@ -1,22 +1,18 @@
 pipeline {
   agent any
   parameters {
-    choice(name: 'upstream_platform',
-            choices: 'v6 (latest)\nv7-dev.12341abc\nv5\nv4\nv3\nv3dev\nv2\nv2dev\nv1',
-            description: 'Pickup version to deploy?')
-    choice(name: 'profiles',
-            choices: 'v3 (latest)\nv4-dev.asdf1234\nv2\nv1',
-            description: 'Pickup version to deploy?')
-    choice(name: 'session',
-            choices: 'v5 (latest)\nv6-dev.d832k38ck\nv4\nv3\nv2\nv1',
-            description: 'Pickup version to deploy?')
+    choice(name: 'env',
+            choices: 'stage-US\nstage-EU\nPRODUCTION',
+            description: 'Environment you want deploy to')
+    choice(name: 'version',
+            choices: 'v9.3.1 (latest)\nv9.4.0-dev.eixk3sik\nv9.3.0\nv9.2.2',
+            description: 'Version you want to deploy')
   }
   stages {
     stage('Prepare') {
       steps {
-        echo "Upstream platform: ${params.upstream_platform}"
-        echo "Profiles: ${params.profiles}"
-        echo "Session: ${params.session}"
+        echo "Environemt: ${params.env}"
+        echo "Version: ${params.version}"
         sh "sleep 1"
       }
     }
@@ -62,7 +58,7 @@ Plan: 3 to add, 1 to change, 1 to destroy.
       }
 
       steps {
-        echo "Deploying to ${params.env}"
+        echo "Deploying to ${params.env}; version ${params.version}"
         sh "sleep 3"
       }
     }
