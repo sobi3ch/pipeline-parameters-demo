@@ -7,6 +7,11 @@ pipeline {
     choice(name: 'version',
             choices: 'v9.3.1 (latest)\nv9.4.0-dev.eixk3sik\nv9.3.0\nv9.2.2',
             description: 'Version you want to deploy')
+    booleanParam(name: 'with-custom-profiles', defaultValue: false, description: 'Check to deploy with "profiles" version different then default')
+    choice(name: 'profiles-version',
+            choices: 'v1.0.0\nv1.0.0-dev.eixk3sik\nv1.1.0\nv1.1.1',
+            description: 'Profiles version you want to deploy')
+
   }
   stages {
     stage('Prepare') {
